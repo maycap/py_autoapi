@@ -4,8 +4,12 @@
 
 ### 使用介绍
 
-1、python manager.py init_db  # 默认为测试sqlite
-2、python manager.py run				# 启动服务，默认端口 5000
+
+	# 默认为测试sqlite，初始化数据库
+	python manager.py init_db		
+	
+	# 启动服务，默认端口 5000	
+	python manager.py run				
 
 
 ### 方法介绍
