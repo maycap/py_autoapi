@@ -36,3 +36,14 @@
 ### 后续
 
 表字段自动类型校验
+
+
+```seq
+Title: Here is a title
+A->B: Normal line
+B-->C: Dashed line
+C->>D: Open arrow
+D-->>A: Dashed open arrow
+```
+
+
