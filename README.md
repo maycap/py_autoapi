@@ -2,7 +2,11 @@
 
 ### 前言
 
+动动手设计下表结构，就能自动注入对应API方法；
+
 基于sqlalchemy 与flask框架实现的数据库模块自动生成CURD demo
+
+
 
 ### 使用介绍
 
@@ -11,7 +15,13 @@
 	python manager.py init_db		
 	
 	# 启动服务，默认端口 5000	
-	python manager.py run				
+	python manager.py run
+	
+	# 只需要在app/models.py 中定义 Table，会自动注入CURD API方法
+	添加新表，需要重新 init_db
+	
+	# 对应url: 	http://127.0.0.1:5000/api/models/<tablename>
+	会自动生成注入 get、post、put、delete（具体可以配置）					
 
 
 ### 方法介绍
