@@ -1,9 +1,10 @@
 # coding: utf-8
-from sqlalchemy import Column, String, Integer, DateTime, create_engine
-from sqlalchemy.ext.declarative import declarative_base
+from contextlib import contextmanager
 
 from datetime import datetime
-from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy import Column, String, Integer, DateTime, create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 
@@ -30,7 +31,19 @@ class User(Base):
 
 some_enginne = create_engine('sqlite:///foo.db')
 session_factory = sessionmaker(bind=some_enginne)
-Session = scoped_session(session_factory)
+
+@contextmanager
+def Session():
+    session = session_factory()
+    try:
+        yield session
+        session.commit()
+    except:
+        session.rollback()
+        raise
+    finally:
+        session.close()
+
 
 if __name__ == '__main__':
     Base.metadata.create_all(some_enginne)

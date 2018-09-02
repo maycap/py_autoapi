@@ -1,5 +1,9 @@
 # web自动CURD
 
+### 版本
+	
+* 1.1
+
 ### 前言
 
 动动手设计下表结构，就能自动注入对应API方法；
@@ -20,35 +24,42 @@
 	# 只需要在app/models.py 中定义 Table，会自动注入CURD API方法
 	添加新表，需要重新 init_db
 	
-	# 对应url: 	http://127.0.0.1:5000/api/models/<tablename>
-	会自动生成注入 get、post、put、delete（具体可以配置）					
-
 
 ### 方法介绍
 
-> get
+> 获取对象列表
 
-	原理： 基于Base父类获取，如果单独使用无需注入路由等配置；
-	策略： 默认全部开启
-	支持： 所有表字段
+	GET http://127.0.0.1:5000/api/models/
+	
+> 获取一个对象
+	
+	GET http://127.0.0.1:5000/api/models/<string:table>/<int:id>/
+	
+> 创建一个对象
 
-> post | put
+	POST http://127.0.0.1:5000/api/models/<string:table>/
 
-	原理： 基于ORM模块
-	策略： 默认全部开启，可在__init__中配置
-	支持： id、以及所有设置为 unique 关键字的更新
+> 修改一个对象
 
-> delete
+	PUT http://127.0.0.1:5000/api/models/<string:table>/<int:id>/
+	
+> 修改部分属性一个对象
 
-	原理： 同 post
-	策略： 同 post
-	支持： 仅支持id方法删除
+	PATCH http://127.0.0.1:5000/api/models/<string:table>/<int:id>/
 
-### 备注
+> 删除一个对象
+	
+	DELETE http://127.0.0.1:5000/api/models/<string:table>/<int:id>/	
 
-* 采用Base父类，可以省去路由注入等很多操作，缺点只可读；适合全表管理，比如：创建、自动化前端表格创建
+
+### 修改与新增功能列表
+
+* 提取模块校验为装饰器，统一 404、405 返回
+* 修改为了restful api格式
+* 统一使用Base管理所有子类，避免导入model
+* 添加字段类型校验功能（默认值智能校验）
 
 ### 后续
 
-* 表字段自动类型校验
+	提供api doc，生成在线文档
 
